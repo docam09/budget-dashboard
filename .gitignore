@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# Streamlit
+.streamlit/
+
+# Data and Logs
+*.log
+diag_*.txt
+*.txt
+!requirements.txt
+!README.md
+!amt.txt
+!col_r.txt
+!headers.txt
+!month_cols.txt
+
+# Excel temp files
+~$*.xlsx
