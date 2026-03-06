@@ -14,27 +14,148 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Custom CSS for premium look
+# Custom Modern CSS by AI
 st.markdown("""
 <style>
-    .main {
-        background-color: #f8f9fa;
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+    /* Global Typography & Background */
+    .stApp {
+        background-color: #fcfbfa; /* Off-white creamy background */
+        color: #111827;
+        font-family: 'Inter', sans-serif !important;
     }
-    .stMetric {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    h1, h2, h3, h4, .stMetric label {
+        font-family: 'Outfit', sans-serif !important;
+        color: #064e3b !important; /* Very dark green */
     }
-    .metric-container {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 30px;
+
+    /* Hide Streamlit components */
+    header {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+
+    /* Premium Metric Styling - Canvas Style */
+    [data-testid="metric-container"] {
+        background: linear-gradient(135deg, #f0f4eb 0%, #e2ead6 100%) !important;
+        border: none !important;
+        border-radius: 16px !important;
+        padding: 20px 24px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02) !important;
+        transition: all 0.3s ease !important;
     }
-    h1, h2, h3 {
-        color: #1e293b;
-        font-family: 'Inter', sans-serif;
+    [data-testid="metric-container"]:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05) !important;
+    }
+    [data-testid="stMetricValue"] {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #84cc16 !important; /* Bright lime/leaf green */
+    }
+    [data-testid="stMetricLabel"] {
+        font-size: 1.1rem;
+        color: #3f3f46 !important;
+        font-weight: 500;
+        letter-spacing: 0px;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Title Styling */
+    h1 {
+        font-size: 2.5rem !important;
+        text-align: left;
+        letter-spacing: -0.5px;
+        margin-bottom: 5px;
+    }
+    h2 {
+        border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+        padding-bottom: 10px;
+    }
+
+    /* Sidebar General Styling */
+    [data-testid="stSidebar"] {
+        background: #f4f5f0 !important; /* Slightly darker cream for sidebar */
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    [data-testid="stSidebar"] * {
+        color: #1f2937 !important; 
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    /* Input & Select Box Containers in Sidebar */
+    .stSelectbox div[data-baseweb="select"],
+    .stMultiSelect div[data-baseweb="select"],
+    .stTextInput input, 
+    .stNumberInput input, 
+    .stPasswordInput input {
+        background-color: #ffffff !important; 
+        color: #111827 !important; 
+        border: 1px solid rgba(0, 0, 0, 0.1) !important; 
+        border-radius: 8px !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    /* Base web inner parts to map transparent */
+    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    /* Hover and Focus states for Inputs */
+    .stSelectbox div[data-baseweb="select"]:hover,
+    .stMultiSelect div[data-baseweb="select"]:hover,
+    .stTextInput input:hover,
+    .stTextInput input:focus {
+        border-color: #84cc16 !important; 
+        box-shadow: 0 0 0 1px rgba(132, 204, 22, 0.2) !important;
+    }
+
+    /* Multi-select and Dropdown */
+    div[data-baseweb="popover"], div[role="listbox"], ul[role="listbox"] {
+        background-color: #ffffff !important; 
+        border: 1px solid rgba(0, 0, 0, 0.1) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+    
+    /* Multiselect specific tags */
+    span[data-baseweb="tag"] {
+        background-color: #ecfccb !important; /* very light lime */
+        color: #4d7c0f !important; /* dark lime */
+        border: 1px solid #d9f99d !important;
+        border-radius: 6px !important;
+    }
+    
+    /* Dropdown text options color override */
+    li[role="option"] {
+        background-color: transparent !important;
+        color: #1f2937 !important;
+    }
+    li[role="option"]:hover, li[aria-selected="true"] {
+        background-color: #f7fee7 !important;
+        color: #4d7c0f !important;
+    }
+
+    /* Buttons */
+    .stButton > button {
+        background: #84cc16;
+        color: white !important;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(132, 204, 22, 0.2);
+    }
+    .stButton > button:hover {
+        background: #65a30d;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 10px rgba(132, 204, 22, 0.3);
+    }
+
+    /* Block wrappers */
+    .block-container {
+        padding-top: 2rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -302,7 +423,7 @@ def load_data(file_input):
 # Helper for styling
 def get_styled_df(df_to_style, currency_sym="$"):
     def color_usage(val):
-        color = 'red' if val > 1.0 else 'green'
+        color = '#ef4444' if val > 1.0 else '#10b981'
         return f'color: {color}; font-weight: bold'
     
     # Define columns to format (original, renamed, and TRANSLATED)
@@ -329,7 +450,11 @@ def get_styled_df(df_to_style, currency_sym="$"):
         if col in df_to_style.columns:
             format_dict[col] = "{:.1%}"
 
-    styled = df_to_style.style.format(format_dict)
+    styled = df_to_style.style.format(format_dict).set_properties(**{
+        'background-color': '#ffffff',
+        'color': '#1f2937',
+        'border-color': 'rgba(0,0,0,0.05)'
+    })
     
     # Apply color to percentage columns if they exist
     existing_pct_cols = [c for c in pct_cols if c in df_to_style.columns]
@@ -339,8 +464,22 @@ def get_styled_df(df_to_style, currency_sym="$"):
     return styled
 
 # Main Logic
-st.title("📊 Financial Budget Dashboard")
-st.markdown("---")
+
+import datetime
+today_str = datetime.datetime.now().strftime("%A, %B %d, %Y")
+
+st.markdown(f"""
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
+        <div>
+            <h1 style="color: #064e3b; margin: 0; padding: 0;">Financial Performance Dashboard</h1>
+            <p style="color: #52525b; font-size: 1.1rem; margin-top: 5px;">Today is {today_str}</p>
+        </div>
+        <div style="background: #84cc16; color: white; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+            Active Session
+        </div>
+    </div>
+""", unsafe_allow_html=True)
+
 
 # File Path
 # File Path
@@ -658,17 +797,38 @@ if df_raw is not None:
                 })
                 fig = px.bar(
                     summary_data, x="Category", y="Amount", color="Category",
-                    color_discrete_map={L["target"]: "#1e293b", L["result"]: "#3b82f6"},
-                    template="plotly_white"
+                    color_discrete_map={L["target"]: "#064e3b", L["result"]: "#84cc16"},
+                    template="plotly_white",
+                    text_auto=".2s"
+                )
+                fig.update_layout(
+                    plot_bgcolor="rgba(0,0,0,0)",
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    font_color="#1f2937",
+                    font_family="Inter",
+                    margin=dict(l=10, r=10, t=10, b=10)
                 )
             else:
                 chart_data = filtered_df.groupby(c_dept)[[c_budget, c_actual]].sum().reset_index()
+                # Using a Line chart internally to emulate the canvas design if possible, 
+                # but since data is categorical (Departments), Bar is often safer. We'll stick to Bar but style it light.
                 fig = px.bar(
                     chart_data, x=c_dept, y=[c_budget, c_actual],
                     labels={"value": "Amount", "variable": "Category"},
-                    barmode="group", color_discrete_sequence=["#1e293b", "#3b82f6"],
-                    template="plotly_white"
+                    barmode="group", color_discrete_sequence=["#064e3b", "#84cc16"],
+                    template="plotly_white",
+                    text_auto=".2s"
                 )
+            fig.update_layout(
+                plot_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="rgba(0,0,0,0)",
+                font_color="#1f2937",
+                font_family="Inter",
+                xaxis=dict(showgrid=False),
+                yaxis=dict(gridcolor="rgba(0,0,0,0.05)"),
+                margin=dict(l=10, r=10, t=10, b=10),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            )
             st.plotly_chart(fig, use_container_width=True)
     
     with col2:
@@ -677,9 +837,17 @@ if df_raw is not None:
             fig_pie = px.pie(
                 names=["Used", "Remaining"],
                 values=[total_actual, max(0, total_all_budget - total_actual)],
-                hole=0.5,
-                color_discrete_sequence=["#ef4444" if usage_pct > 100 else "#3b82f6", "#e2e8f0"]
+                hole=0.65,
+                color_discrete_sequence=["#ef4444" if usage_pct > 100 else "#84cc16", "#e5e7eb"]
             )
+            fig_pie.update_layout(
+                plot_bgcolor="rgba(0,0,0,0)",
+                paper_bgcolor="rgba(0,0,0,0)",
+                font_color="#1f2937",
+                font_family="Inter",
+                margin=dict(l=10, r=10, t=10, b=10)
+            )
+            fig_pie.add_annotation(text=f"<b>{usage_pct:.1f}%</b>", x=0.5, y=0.5, font_size=24, showarrow=False, font_color="#064e3b")
             st.plotly_chart(fig_pie, use_container_width=True)
 
 
