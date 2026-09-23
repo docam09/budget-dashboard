@@ -507,7 +507,14 @@ st.sidebar.markdown("---")
 st.sidebar.header("🛡️ Admin Server Update")
 upload_pass = st.sidebar.text_input("Admin Password:", type="password")
 
-if upload_pass == "20202024":
+# Keep the admin password outside source control. Configure ADMIN_PASSWORD in
+# Streamlit Community Cloud under App settings > Secrets.
+try:
+    admin_password = st.secrets["ADMIN_PASSWORD"]
+except (KeyError, FileNotFoundError):
+    admin_password = None
+
+if admin_password and upload_pass == admin_password:
     admin_file = st.sidebar.file_uploader("Overwrite master file on server", type=["xlsx", "xls"], key="admin_upload")
     if admin_file is not None:
         file_id = f"a_{admin_file.name}_{admin_file.size}"
@@ -619,7 +626,10 @@ if df_raw is not None:
     
     # Dedicated month selector - pick which month to view
     st.sidebar.markdown("---")
-    month_label_map = {prefix: f"Tháng {re.match(r'^(\d+)', prefix).group(1)} ({prefix})" for prefix in month_cols}
+    month_label_map = {
+        prefix: f"Tháng {re.match('^([0-9]+)', prefix).group(1)} ({prefix})"
+        for prefix in month_cols
+    }
     month_label_options = [L["all_year"]] + list(month_label_map.values())
     
     try:
